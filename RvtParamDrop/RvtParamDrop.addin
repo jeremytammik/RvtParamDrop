@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>RvtParamDrop</Text>
+    <Description>Revit .NET C# add-in to export parameter values for elements visible in current view</Description>
+    <Assembly>RvtParamDrop.dll</Assembly>
+    <FullClassName>RvtParamDrop.Command</FullClassName>
+    <ClientId>9389d6fa-d2c5-4c74-be96-04ac0899abd1</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>

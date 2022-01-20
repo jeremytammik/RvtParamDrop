@@ -1,0 +1,49 @@
+https://autodesk.slack.com/archives/C01GG1B62AF/p1641835210049700
+
+Tobias Hathorn
+
+Hi Revit folks - I’m looking to do some data validation on parameters coming out of Revit headed to FDX (for the Power Automate workflow).
+Are there any debug tools or other utilities in Revit so I can get a count / csv of Revit parameters on elements in a view?
+@Andy Parrella @Dave Fagerstrom @Lou Bianchini @John Thomas @Angel Velez…?
+
+https://autodesk.slack.com/archives/C01GG1B62AF/p1641835591050600
+
+Andy Parrella 
+
+@Tobias Hathorn I had made this spreadsheet that contains the parameters I extracted from some of the models - also attached is the macro I used...
+
+Parameters.xlsx -- Excel spreadsheetView Excel spreadsheet in Slack
+Macro GetParams.txt -- Plain textClick to view details
+
+Tobias Hathorn
+
+Thank you @Andy Parrella!
+I believe @Greg Henry already saw this, but pinging here for follow up questions in thread - I’ll try out the utility!
+
+Lou Bianchini
+
+@Tobias Hathorn Note there are several things you'd want to change about that macro.
+
+- You don't want to limit yourself to shared parameters
+- You want to limit yourself to parameters with a value
+- You don't care about the name of the parameter, you care about the schema (TypeId)
+- A small number of parameters are intentionally ignored as redundant (ELEM_CATEGORY_PARAM, ELEM_CATEGORY_PARAM_MT, ELEM_FAMILY_AND_TYPE_PARAM, SYMBOL_ID_PARAM, and ELEM_TYPE_PARAM)
+
+Tobias Hathorn
+
+oh great - thank you for calling all that out @Lou Bianchini - I’m not a Revit API expert but I can work w @Kevin Vandecar and @Greg Henry to tune this macro to what we’re looking for
+
+Tobias Hathorn  21 hours ago
+
+@Andy Parrella I was just pinging @Krishna Kumar Pappu about the task he assigned to you and @Greg Henry at the last meeting (to test S, M, L models) is that what this XLSX is for? If so, maybe you do want to include more than just the shared params as Lou points out?
+
+Andy Parrella  21 hours ago
+
+Yeah I guess so - maybe Greg can help with that? I would take longer to get it working, I bet
+
+Tobias Hathorn  20 hours ago
+
+Maybe - it’s more of a Revit API specialization. I found this thread, and of course Jeremy Tammik could potentially help too.
+
+https://forums.autodesk.com/t5/revit-api-forum/filter-elements-by-parameter-value/td-p/8035505
+

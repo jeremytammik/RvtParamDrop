@@ -1,0 +1,71 @@
+/*
+ * Created by SharpDevelop.
+ * User: parrela
+ * Date: 12/10/2021
+ * Time: 11:29 AM
+ * 
+ * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ */
+using System;
+using Autodesk.Revit.UI;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI.Selection;
+using System.Collections.Generic;
+using System.Linq;
+using System.Diagnostics; 
+
+namespace Params
+{
+    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [Autodesk.Revit.DB.Macros.AddInId("381A23A3-1D07-4F29-A796-F7291AA6B4B8")]
+	public partial class ThisDocument
+	{
+		private void Module_Startup(object sender, EventArgs e)
+		{
+
+		}
+
+		private void Module_Shutdown(object sender, EventArgs e)
+		{
+
+		}
+
+		#region Revit Macros generated code
+		private void InternalStartup()
+		{
+			this.Startup += new System.EventHandler(Module_Startup);
+			this.Shutdown += new System.EventHandler(Module_Shutdown);
+		}
+		#endregion
+		
+	
+		public void GetParams()
+		{	
+			
+		//UIDocument uidoc = this.ActiveUIDocument;
+				Document doc = this.Document;
+		
+		
+		List<Element> sharedParams = new List<Element>();
+		
+		FilteredElementCollector collector
+		    = new FilteredElementCollector(doc)
+		    .WhereElementIsNotElementType();
+		
+		// Filter elements for shared parameters only
+		collector.OfClass(typeof(SharedParameterElement));
+		
+		String paramList = "";
+		foreach(Element e in collector)
+		{
+		    SharedParameterElement param = e as SharedParameterElement;
+		    Definition def = param.GetDefinition();
+		    paramList += def.Name + "\r\n";
+		    
+		
+				}
+		TaskDialog.Show("Result",paramList);
+		System.IO.File.WriteAllText(@"C:\Users\parrela\desktop\Params.txt", paramList);
+		}
+	
+	}}
