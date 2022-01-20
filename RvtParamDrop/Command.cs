@@ -48,9 +48,21 @@ namespace RvtParamDrop
     void ParamDropForParam(Element host, Parameter p)
     {
       ElementId eid = host.Id;
+
+      if (!_data.ContainsKey(eid))
+      {
+        _data.Add(eid, new Dictionary<ElementId, ParamDropData>());
+      }
+
+      ElementId paramid = p.Id;
+
+      if (_data[eid].ContainsKey(paramid))
+      {
+        return;
+      }
+
       Document doc = host.Document;
       Definition def = p.Definition;
-      ElementId paramid = p.Id;
 
       ParamDropData d = new ParamDropData();
       d.HostElementId = eid;
@@ -58,11 +70,6 @@ namespace RvtParamDrop
       d.ParameterName = def.Name;
       d.ParameterValue = p.AsValueString();
       d.ParameterTypeId = def.GetDataType().TypeId;
-
-      if(!_data.ContainsKey(eid)) 
-      {
-        _data.Add(eid, new Dictionary<ElementId, ParamDropData>());
-      }
 
       _data[eid].Add(paramid, d);
 
@@ -74,7 +81,7 @@ namespace RvtParamDrop
         ElementId id = p.AsElementId();
         if (null != id
           && ElementId.InvalidElementId != id
-          && 0 < id.IntegerValue )
+          && 0 < id.IntegerValue)
         {
           Element e = doc.GetElement(id);
           if (null != e)
