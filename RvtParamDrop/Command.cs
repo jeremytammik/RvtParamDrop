@@ -43,18 +43,29 @@ namespace RvtParamDrop
       System.IO.File.WriteAllText(@"C:\Users\parrela\desktop\Params.txt", paramList);
     }
 
+    void ParamDropForElement(Element e)
+    {
+      Debug.Print(e.Name);
+      ParameterSet ps = e.Parameters;
+      int n = ps.Size;
+      ParameterSetIterator i = ps.ForwardIterator();
+      while( i.MoveNext() )
+      {
+        Object obj = i.Current;
+      }
+    }
+
     void ParamDropForView(View view)
     {
       Document doc = view.Document;
 
-      FilteredElementCollector els
+      FilteredElementCollector col 
         = new FilteredElementCollector(doc, view.Id);
 
-      foreach (Element e in els)
+      foreach (Element e in col)
       {
-        Debug.Print(e.Name);
+        ParamDropForElement(e);
       }
-
     }
 
     public Result Execute(
