@@ -6,6 +6,7 @@ using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 #endregion
 
@@ -14,6 +15,11 @@ namespace RvtParamDrop
   [Transaction(TransactionMode.ReadOnly)]
   public class Command : IExternalCommand
   {
+    /// <summary>
+    /// Output file path
+    /// </summary>
+    string _filepath = "C:/tmp/RvtParamDrop.csv";
+
     /// <summary>
     /// Data collector for exported data mapping
     /// ElementId --> ParameterId --> parameter data
@@ -66,6 +72,7 @@ namespace RvtParamDrop
 
       ParamDropData d = new ParamDropData();
       d.HostElementId = eid;
+      d.HostElementName = host.n;
       d.ParameterId = paramid;
       d.ParameterName = def.Name;
       d.ParameterValue = p.AsValueString();
@@ -155,6 +162,32 @@ namespace RvtParamDrop
 
       ParamDropForView(view);
 
+      // Dump data
+
+      using (StreamWriter s = new StreamWriter(_filepath))
+      {
+        s.WriteLine(ParamDropData.CsvHeader);
+
+        List<int> eids = new List<int>(_data.Keys
+          .Select<ElementId, int>(id => id.IntegerValue));
+
+        eids.Sort();
+        foreach (int id in eids)
+        {
+          ElementId eid = new ElementId(id);
+
+          List<int> pids = new List<int>(_data[eid].Keys
+            .Select<ElementId, int>(id2 => id2.IntegerValue));
+
+          pids.Sort();
+          foreach (int id2 in pids)
+          {
+            ElementId pid = new ElementId(id2);
+            s.WriteLine(_data[eid][pid].CsvString);
+          }
+        }
+        s.Close();
+      }
       return Result.Succeeded;
     }
   }
