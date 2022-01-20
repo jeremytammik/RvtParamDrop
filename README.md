@@ -17,4 +17,5 @@ A small number of parameters are intentionally ignored as redundant:
 - ELEM_TYPE_PARAM
 - SYMBOL_ID_PARAM
 
+Include parameters from both elements and their types, i.e., both instance and type parameters.
 
