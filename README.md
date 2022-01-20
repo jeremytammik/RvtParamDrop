@@ -21,7 +21,7 @@ Include parameters from both elements and their types, i.e., both instance and t
 
 Actually, it's more complicated than that.
 Anything that is visible in the view will include its instance and type parameters.
-If an instance or a type has a parameter that refers to another Element, its instance and type parameters are also exported, regardless of whether it is visible or not.
+If an instance or a type has a parameter that refers to another `Element`, its instance and type parameters are also exported, regardless of whether it is visible or not.
 That is recursive, so if X references Y references Z references W, then W's parameters are exported if X, Y, or Z is visible.
 We follow all references.
 Who are we to say that a referenced `Element` isn't useful?
