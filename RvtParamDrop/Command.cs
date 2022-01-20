@@ -94,16 +94,19 @@ namespace RvtParamDrop
 
     void ParamDropForElement(Element e)
     {
-      ParameterSet ps = e.Parameters;
-      int n = ps.Size;
-      Debug.Print("Element <{0}> '{1}' has {2} parameters", e.Id,e.Name, n);
-      Dictionary<ElementId, int> refIds = new Dictionary<ElementId, int>();
-      ParameterSetIterator i = ps.ForwardIterator();
-      while( i.MoveNext())
+      if (!_data.ContainsKey(e.Id))
       {
-        Object obj = i.Current;
-        Parameter p = obj as Parameter;
-        ParamDropForParam(e, p);
+        ParameterSet ps = e.Parameters;
+        int n = ps.Size;
+        Debug.Print("Element <{0}> '{1}' has {2} parameters", e.Id, e.Name, n);
+        Dictionary<ElementId, int> refIds = new Dictionary<ElementId, int>();
+        ParameterSetIterator i = ps.ForwardIterator();
+        while (i.MoveNext())
+        {
+          Object obj = i.Current;
+          Parameter p = obj as Parameter;
+          ParamDropForParam(e, p);
+        }
       }
     }
 
