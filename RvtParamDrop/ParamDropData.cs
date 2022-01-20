@@ -6,6 +6,7 @@ namespace RvtParamDrop
   class ParamDropData
   {
     public ElementId HostElementId { get; set; }
+    public string HostCategory { get; set; }
     public string HostElementName { get; set; }
     public ElementId ParameterId { get; set; }
     public string ParameterTypeId { get; set; }
@@ -19,7 +20,7 @@ namespace RvtParamDrop
     {
       get
       {
-        return "HostElementId,HostElementName,ParameterId,ParameterTypeId,ParameterName,ParameterValue";
+        return "HostElementId,HostCategory,HostElementName,ParameterId,ParameterTypeId,ParameterName,ParameterValue";
       }
     }
 
@@ -31,10 +32,12 @@ namespace RvtParamDrop
       get
       {
         return HostElementId.IntegerValue.ToString()
+          + "," + HostCategory
+          + "," + HostElementName
           + "," + ParameterId.IntegerValue.ToString()
           + "," + ParameterTypeId
-          + "," + ParameterName
-          + "," + ParameterValue;
+          + ",\"" + ParameterName
+          + "\",\"" + ParameterValue + "\"";
       }
     }
   }

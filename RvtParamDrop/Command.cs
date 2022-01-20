@@ -69,10 +69,12 @@ namespace RvtParamDrop
 
       Document doc = host.Document;
       Definition def = p.Definition;
+      Category cat = host.Category;
 
       ParamDropData d = new ParamDropData();
       d.HostElementId = eid;
-      d.HostElementName = host.n;
+      d.HostCategory = (null == cat) ? "" : cat.Name;
+      d.HostElementName = host.Name;
       d.ParameterId = paramid;
       d.ParameterName = def.Name;
       d.ParameterValue = p.AsValueString();
