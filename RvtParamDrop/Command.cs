@@ -3,11 +3,10 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
+using System.Linq;
 #endregion
 
 namespace RvtParamDrop
@@ -18,10 +17,8 @@ namespace RvtParamDrop
 
     public void GetParams(Document doc)
     {
-
       //UIDocument uidoc = this.ActiveUIDocument;
       //Document doc = this.Document;
-
 
       List<Element> sharedParams = new List<Element>();
 
@@ -48,10 +45,13 @@ namespace RvtParamDrop
       Debug.Print(e.Name);
       ParameterSet ps = e.Parameters;
       int n = ps.Size;
+      Debug.Print("Element <{0}> '{1}' has {2} parameters", e.Id,e.Name, n);
       ParameterSetIterator i = ps.ForwardIterator();
-      while( i.MoveNext() )
+      while( i.MoveNext())
       {
         Object obj = i.Current;
+        Parameter p = obj as Parameter;
+        Definition def = p.Definition;
       }
     }
 
@@ -62,8 +62,34 @@ namespace RvtParamDrop
       FilteredElementCollector col 
         = new FilteredElementCollector(doc, view.Id);
 
+      int nElem = col.GetElementCount();
+      Debug.Print("{0} elements visible in view", nElem);
+      Dictionary<ElementId, int> typeIds = new Dictionary<ElementId, int>();
+
       foreach (Element e in col)
       {
+        ParamDropForElement(e);
+
+        // Collect all element types
+
+        ElementId tid = e.GetTypeId();
+        if (null != tid
+          && ElementId.InvalidElementId != tid)
+        {
+          if (!typeIds.ContainsKey(tid))
+          {
+            typeIds.Add(tid, 1);
+          }
+          else
+          {
+            ++typeIds[tid];
+          }
+        }
+      }
+
+      foreach (ElementId id in typeIds.Keys)
+      {
+        Element e = doc.GetElement(id);
         ParamDropForElement(e);
       }
     }
