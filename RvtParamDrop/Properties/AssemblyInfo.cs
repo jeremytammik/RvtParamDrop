@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RvtParamDrop")]
-[assembly: AssemblyDescription("Revit Add-In Description for RvtParamDrop")]
+[assembly: AssemblyDescription("Revit .NET C# add-in to export parameter values for elements visible in current view")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Autodesk Inc.")]
 [assembly: AssemblyProduct("RvtParamDrop Revit C# .NET Add-In")]
-[assembly: AssemblyCopyright("Copyright (C) 2020 by Jeremy Tammik, Autodesk Inc.")]
+[assembly: AssemblyCopyright("Copyright (C) 2021 by Jeremy Tammik, Autodesk Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

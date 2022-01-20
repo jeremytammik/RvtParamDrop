@@ -1,2 +1,20 @@
 # RvtParamDrop
+
 Revit .NET C# add-in to export parameter values for elements visible in current view
+
+Generate a count and a `csv` of Revit parameters on elements in a view.
+
+- Do not limit yourself to shared parameters
+- Do limit yourself to parameters with a value
+- Name of the parameter
+- Schema (`TypeId`)
+
+A small number of parameters are intentionally ignored as redundant:
+
+- ELEM_CATEGORY_PARAM
+- ELEM_CATEGORY_PARAM_MT
+- ELEM_FAMILY_AND_TYPE_PARAM
+- ELEM_TYPE_PARAM
+- SYMBOL_ID_PARAM
+
+
