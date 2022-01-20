@@ -14,6 +14,11 @@ namespace RvtParamDrop
   [Transaction(TransactionMode.ReadOnly)]
   public class Command : IExternalCommand
   {
+    /// <summary>
+    /// Data collector for exported data mapping
+    /// ElementId --> ParameterId --> parameter data
+    /// </summary>
+    Dictionary<ElementId, Dictionary<ElementId, ParamDropData>> _data = null;
 
     public void GetParams(Document doc)
     {
@@ -40,9 +45,40 @@ namespace RvtParamDrop
       System.IO.File.WriteAllText(@"C:\Users\parrela\desktop\Params.txt", paramList);
     }
 
+    void ParamDropForParam(Element host, Parameter p)
+    {
+      ElementId eid = host.Id;
+      Document doc = host.Document;
+      Definition def = p.Definition;
+      ElementId paramid = p.Id;
+
+      ParamDropData d = new ParamDropData();
+      d.HostElementId = eid;
+      d.ParameterId = paramid;
+      d.ParameterName = def.Name;
+      d.ParameterValue = p.AsValueString();
+      d.ParameterTypeId = def.GetDataType().TypeId;
+
+      if(!_data.ContainsKey(eid)) 
+      {
+        _data.Add(eid, new Dictionary<ElementId, ParamDropData>());
+      }
+
+      _data[eid].Add(paramid, d);
+
+
+      // Recurse to process all referenced elements
+
+      StorageType st = p.StorageType;
+      if (StorageType.ElementId == st)
+      {
+        Element e = doc.GetElement(p.AsElementId());
+        ParamDropForElement(e);
+      }
+    }
+
     void ParamDropForElement(Element e)
     {
-      Debug.Print(e.Name);
       ParameterSet ps = e.Parameters;
       int n = ps.Size;
       Debug.Print("Element <{0}> '{1}' has {2} parameters", e.Id,e.Name, n);
@@ -52,14 +88,7 @@ namespace RvtParamDrop
       {
         Object obj = i.Current;
         Parameter p = obj as Parameter;
-        Definition def = p.Definition;
-        ElementId paramid = p.Id;
-        StorageType st = p.StorageType;
-        if( StorageType.ElementId == st)
-        {
-
-
-        }
+        ParamDropForParam(e, p);
       }
     }
 
@@ -73,13 +102,14 @@ namespace RvtParamDrop
       int nElem = col.GetElementCount();
       Debug.Print("{0} elements visible in view", nElem);
       ElementIdSet typeIds = new ElementIdSet();
-      ElementIdSet referencedIds = new ElementIdSet();
 
       foreach (Element e in col)
       {
         ParamDropForElement(e);
 
         // Collect all element types
+        // Probably superfluous, since they are already 
+        // collected by the ParamDropForElement recursion.
 
         ElementId tid = e.GetTypeId();
         typeIds.Add(tid);
@@ -102,6 +132,8 @@ namespace RvtParamDrop
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
       View view = doc.ActiveView;
+
+      _data = new Dictionary<ElementId, Dictionary<ElementId, ParamDropData>>();
 
       ParamDropForView(view);
 

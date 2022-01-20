@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Command.cs" />
     <Compile Include="ElementIdSet.cs" />
+    <Compile Include="ParamDropData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
