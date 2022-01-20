@@ -15,6 +15,48 @@ namespace RvtParamDrop
   [Transaction(TransactionMode.ReadOnly)]
   public class Command : IExternalCommand
   {
+
+    public void GetParams(Document doc)
+    {
+
+      //UIDocument uidoc = this.ActiveUIDocument;
+      //Document doc = this.Document;
+
+
+      List<Element> sharedParams = new List<Element>();
+
+      FilteredElementCollector collector
+          = new FilteredElementCollector(doc)
+          .WhereElementIsNotElementType();
+
+      // Filter elements for shared parameters only
+      collector.OfClass(typeof(SharedParameterElement));
+
+      String paramList = "";
+      foreach (Element e in collector)
+      {
+        SharedParameterElement param = e as SharedParameterElement;
+        Definition def = param.GetDefinition();
+        paramList += def.Name + "\r\n";
+      }
+      TaskDialog.Show("Result", paramList);
+      System.IO.File.WriteAllText(@"C:\Users\parrela\desktop\Params.txt", paramList);
+    }
+
+    void ParamDropForView(View view)
+    {
+      Document doc = view.Document;
+
+      FilteredElementCollector els
+        = new FilteredElementCollector(doc, view.Id);
+
+      foreach (Element e in els)
+      {
+        Debug.Print(e.Name);
+      }
+
+    }
+
     public Result Execute(
       ExternalCommandData commandData,
       ref string message,
@@ -24,33 +66,9 @@ namespace RvtParamDrop
       UIDocument uidoc = uiapp.ActiveUIDocument;
       Application app = uiapp.Application;
       Document doc = uidoc.Document;
+      View view = doc.ActiveView;
 
-      // Access current selection
-
-      Selection sel = uidoc.Selection;
-
-      // Retrieve elements from database
-
-      FilteredElementCollector col
-        = new FilteredElementCollector(doc)
-          .WhereElementIsNotElementType()
-          .OfCategory(BuiltInCategory.INVALID)
-          .OfClass(typeof(Wall));
-
-      // Filtered element collector is iterable
-
-      foreach (Element e in col)
-      {
-        Debug.Print(e.Name);
-      }
-
-      // Modify document within a transaction
-
-      using (Transaction tx = new Transaction(doc))
-      {
-        tx.Start("Transaction Name");
-        tx.Commit();
-      }
+      ParamDropForView(view);
 
       return Result.Succeeded;
     }
