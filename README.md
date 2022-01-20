@@ -25,4 +25,3 @@ If an instance or a type has a parameter that refers to another Element, its ins
 That is recursive, so if X references Y references Z references W, then W's parameters are exported if X, Y, or Z is visible.
 We follow all references.
 Who are we to say that a referenced `Element` isn't useful?
-
