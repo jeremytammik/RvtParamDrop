@@ -46,12 +46,20 @@ namespace RvtParamDrop
       ParameterSet ps = e.Parameters;
       int n = ps.Size;
       Debug.Print("Element <{0}> '{1}' has {2} parameters", e.Id,e.Name, n);
+      Dictionary<ElementId, int> refIds = new Dictionary<ElementId, int>();
       ParameterSetIterator i = ps.ForwardIterator();
       while( i.MoveNext())
       {
         Object obj = i.Current;
         Parameter p = obj as Parameter;
         Definition def = p.Definition;
+        ElementId paramid = p.Id;
+        StorageType st = p.StorageType;
+        if( StorageType.ElementId == st)
+        {
+
+
+        }
       }
     }
 
@@ -64,7 +72,8 @@ namespace RvtParamDrop
 
       int nElem = col.GetElementCount();
       Debug.Print("{0} elements visible in view", nElem);
-      Dictionary<ElementId, int> typeIds = new Dictionary<ElementId, int>();
+      ElementIdSet typeIds = new ElementIdSet();
+      ElementIdSet referencedIds = new ElementIdSet();
 
       foreach (Element e in col)
       {
@@ -73,18 +82,7 @@ namespace RvtParamDrop
         // Collect all element types
 
         ElementId tid = e.GetTypeId();
-        if (null != tid
-          && ElementId.InvalidElementId != tid)
-        {
-          if (!typeIds.ContainsKey(tid))
-          {
-            typeIds.Add(tid, 1);
-          }
-          else
-          {
-            ++typeIds[tid];
-          }
-        }
+        typeIds.Add(tid);
       }
 
       foreach (ElementId id in typeIds.Keys)
