@@ -66,14 +66,18 @@ namespace RvtParamDrop
 
       _data[eid].Add(paramid, d);
 
-
       // Recurse to process all referenced elements
 
       StorageType st = p.StorageType;
       if (StorageType.ElementId == st)
       {
-        Element e = doc.GetElement(p.AsElementId());
-        ParamDropForElement(e);
+        ElementId id = p.AsElementId();
+        if (null != id
+          && ElementId.InvalidElementId != id)
+        {
+          Element e = doc.GetElement(id);
+          ParamDropForElement(e);
+        }
       }
     }
 
