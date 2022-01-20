@@ -73,10 +73,14 @@ namespace RvtParamDrop
       {
         ElementId id = p.AsElementId();
         if (null != id
-          && ElementId.InvalidElementId != id)
+          && ElementId.InvalidElementId != id
+          && 0 < id.IntegerValue )
         {
           Element e = doc.GetElement(id);
-          ParamDropForElement(e);
+          if (null != e)
+          {
+            ParamDropForElement(e);
+          }
         }
       }
     }
