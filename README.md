@@ -26,6 +26,12 @@ That is recursive, so if X references Y references Z references W, then W's para
 We follow all references.
 Who are we to say that a referenced `Element` isn't useful?
 
+To be verified:
+
+- All elements of interest and all their references are included
+- All parameter values of interest were included
+- For each parameter value, all required data fields were included
+
 ## Todo
 
 - Define precision for floating point numbers. 
