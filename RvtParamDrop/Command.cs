@@ -71,14 +71,16 @@ namespace RvtParamDrop
       Definition def = p.Definition;
       Category cat = host.Category;
 
-      ParamDropData d = new ParamDropData();
-      d.HostElementId = eid;
-      d.HostCategory = (null == cat) ? "" : cat.Name;
-      d.HostElementName = host.Name;
-      d.ParameterId = paramid;
-      d.ParameterName = def.Name;
-      d.ParameterValue = p.AsValueString();
-      d.ParameterTypeId = def.GetDataType().TypeId;
+      ParamDropData d = new ParamDropData()
+      {
+        HostElementId = eid,
+        HostCategory = (null == cat) ? "" : cat.Name,
+        HostElementName = host.Name,
+        ParameterId = paramid,
+        ParameterName = def.Name,
+        ParameterValue = p.AsValueString(),
+        ParameterTypeId = def.GetDataType().TypeId
+      };
 
       _data[eid].Add(paramid, d);
 
