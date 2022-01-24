@@ -41,7 +41,7 @@ namespace RvtParamDrop
       {
         return HostElementId.IntegerValue.ToString()
           + "," + CsvQuote(HostCategory)
-          + "," + HostElementName
+          + "," + CsvQuote(HostElementName)
           + "," + ParameterId.IntegerValue.ToString()
           + "," + ParameterTypeId
           + "," + CsvQuote(ParameterName)
