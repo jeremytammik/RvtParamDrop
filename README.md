@@ -40,7 +40,7 @@ Standard Revit add-in installation, cf.
 [Revit Developer's Guide](https://help.autodesk.com/view/RVT/2022/ENU/?guid=Revit_API_Revit_API_Developers_Guide_html)
 [Add-in Registration](https://help.autodesk.com/view/RVT/2022/ENU/?guid=Revit_API_Revit_API_Developers_Guide_Introduction_Add_In_Integration_Add_in_Registration_html):
 
-- Copy the add-in manifest `*.addin` and .NET assebmly `DLL` into the Revit `AddIns` folder and restart Revit.
+- Copy the add-in manifest `*.addin` and .NET assembly `DLL` into the Revit `AddIns` folder and restart Revit.
 - Then, click the menu entry under `External Tools` &rarr; `RvtParamDrop`.
 
 ## Todo
