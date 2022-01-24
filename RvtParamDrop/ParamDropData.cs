@@ -25,6 +25,14 @@ namespace RvtParamDrop
     }
 
     /// <summary>
+    /// Wrap CSV output entry in double quotes
+    /// </summary>
+    static public string CsvQuote(string s)
+    {
+      return "\"" + s + "\"";
+    }
+
+    /// <summary>
     /// Return a comma separated string representing this entry
     /// </summary>
     public string CsvString
@@ -32,12 +40,12 @@ namespace RvtParamDrop
       get
       {
         return HostElementId.IntegerValue.ToString()
-          + "," + HostCategory
+          + "," + CsvQuote(HostCategory)
           + "," + HostElementName
           + "," + ParameterId.IntegerValue.ToString()
           + "," + ParameterTypeId
-          + ",\"" + ParameterName
-          + "\",\"" + ParameterValue + "\"";
+          + "," + CsvQuote(ParameterName)
+          + "," + CsvQuote(ParameterValue);
       }
     }
   }
