@@ -75,3 +75,32 @@ Tobias Hathorn
 
 Thank you again for developing this PoC!
 
+Tobias Hathorn 
+
+@Jeremy Tammik this is amazing. Thank you for this!  One request - does this add-in work on a 3D view as well? Exchanges only extract from 3D views. Could you provide a sample drop from SHARE - Overall ? Or we can have a short meeting next week and you can teach me to use your utility?
+for (i) - I’ll need to coordinate w @Srinivasan Jayaraman or @Greg Henry or @Denis Grigor to create a drop from a Data Exchange of the same 3D view. We’ll do a diff and compare!
+(ii) same as above. One of the first things to test is that the HostElemID is useful as a key to match up the two drops. Perhaps we’ll need the Revit GUID in addition.
+(iii) makes sense. No feedback on that yet.
+(iv) yes, we’re opting for a “more is more” philosophy at the moment - we will have a Private Beta with a few customers soon, so, we’ll get some feedback on this topic.
+Thank you again for developing this PoC! 
+
+Andy Parrella
+
+@Jeremy Tammik @Tobias Hathorn if you do a demo this week can you invite me?
+
+Jeremy Tammik 
+
+@Tobias Hathorn yes this should work on a 3D as well. I'll test that in a moment. Yes, we can have a short meeting. However, I would suggest that you try it on your own first. Shall I send you the addin manifest and DLL? All you do is copy them into the AddIns folder and restart Revit. Then click the menu entry under External Tools --> RvtParamDrop. Does that sound doable?
+
+Here is the external tools menu with the external commands.
+
+- external_tools.png 
+- RvtParamDrop_House_Share_Overall.csv - The parameter value drop from the SHARE - Overall 3D view.
+- The add-in manifest and assembly DLL - RvtParamDrop.dll, RvtParamDrop.addin
+
+Please let me know if a meeting and demo is still required! Thx!
+
+Tobias Hathorn
+
+These basic instructions are great - let me give it a go today (and @Andy Parrella too!) then we can see if a meeting is still needed
+

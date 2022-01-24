@@ -32,6 +32,32 @@ To be verified:
 - All parameter values of interest were included
 - For each parameter value, all required data fields were included
 
+The views to be processed are 3D views.
+
+## Installation
+
+Standard Revit add-in installation, cf.
+[Revit Developer's Guide](https://help.autodesk.com/view/RVT/2022/ENU/?guid=Revit_API_Revit_API_Developers_Guide_html)
+[Add-in Registration](https://help.autodesk.com/view/RVT/2022/ENU/?guid=Revit_API_Revit_API_Developers_Guide_Introduction_Add_In_Integration_Add_in_Registration_html):
+
+- Copy the add-in manifest `*.addin` and .NET assebmly `DLL` into the Revit `AddIns` folder and restart Revit.
+- Then, click the menu entry under `External Tools` &rarr; `RvtParamDrop`.
+
 ## Todo
 
-- Define precision for floating point numbers. 
+- Define precision for floating point numbers.
+
+## Author
+
+Jeremy Tammik,
+[The Building Coder](http://thebuildingcoder.typepad.com) and
+[The 3D Web Coder](http://the3dwebcoder.typepad.com),
+[Forge](http://forge.autodesk.com) [Platform](https://developer.autodesk.com) Development,
+[ADN](http://www.autodesk.com/adn)
+[Open](http://www.autodesk.com/adnopen),
+[Autodesk Inc.](http://www.autodesk.com)
+
+## License
+
+This sample is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+Please see the [LICENSE](LICENSE) file for full details.
